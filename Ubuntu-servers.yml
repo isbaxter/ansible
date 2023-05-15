@@ -1,6 +1,5 @@
 ---
-- hosts: ubuntu
-  become: true
+- become: true
   become_user: root
   tasks:
     - name: Update apt repo and cache on allDebian/Ubuntu boxes
