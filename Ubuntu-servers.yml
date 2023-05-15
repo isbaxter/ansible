@@ -5,7 +5,7 @@
   tasks:
     - name: Update apt repo and cache on allDebian/Ubuntu boxes
       apt: update_cache=yesforce_apt_get=yescache_valid_time=3600
-- name: Upgrade allpackages on servers
+    - name: Upgrade allpackages on servers
       apt: upgrade=dist force_apt_get=yes
     - name: Check if a reboot is needed on allservers
       register: reboot_required_file
