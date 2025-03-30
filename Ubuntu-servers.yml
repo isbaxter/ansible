@@ -40,7 +40,7 @@
         state: touch
       delegate_to: localhost
       run_once: true
-      when: apt_update_result
+      when: apt_update_result.failed
 
     - name: Check if upgrade failed
       file:
@@ -48,6 +48,6 @@
         state: touch
       delegate_to: localhost
       run_once: true
-      when: upgrade_result
+      when: upgrade_result.failed
 
 
