@@ -8,12 +8,6 @@
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
       register: apt_update_result
 
-    - name: Debug apt_update_result with hostname
-      debug:
-        msg:
-          - "Hostname: {{ inventory_hostname }}"
-          - "apt_update_result: {{ apt_update_result }}"
-
     - name: Upgrade all packages on servers
       apt: upgrade=dist force_apt_get=yes
       register: upgrade_result
@@ -37,12 +31,12 @@
       copy:
         content: "APT update failure event notification"
         dest: /tmp/apt_update_failure.txt
-      when: apt_update_result.failed == True
+      when: apt_update_result
 
     - name: Check if upgrade failed
       copy:
         content: "Upgrade failure event notification"
         dest: /tmp/upgrade_failure.txt
-      when: upgrade_result.failed == True
+      when: upgrade_result
 
 
