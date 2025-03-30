@@ -6,6 +6,10 @@
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
       register: apt_update_result
 
+    - name: Debug apt_update_result
+      debug:
+        var: apt_update_result
+
     - name: Upgrade all packages on servers
       apt: upgrade=dist force_apt_get=yes
       register: upgrade_result
@@ -29,7 +33,7 @@
       copy:
         content: "APT update failure event notification"
         dest: /tmp/apt_update_failure.txt
-      when: apt_update_result is failed
+      when: apt_update_result.failed
 
     - name: Check if upgrade failed
       copy:
