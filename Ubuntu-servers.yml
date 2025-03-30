@@ -32,12 +32,12 @@
       copy:
         content: "APT update failure event notification"
         dest: /tmp/apt_update_failure.txt
-      when: apt_update_result.failled == True
+      when: apt_update_result.failed == True
 
     - name: Check if upgrade failed
       copy:
         content: "Upgrade failure event notification"
         dest: /tmp/upgrade_failure.txt
-      when: upgrade_result.failled == True
+      when: upgrade_result.failed == True
 
 
