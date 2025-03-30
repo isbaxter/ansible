@@ -2,6 +2,11 @@
 - name: Notify PagerDuty of info events
   hosts: localhost
   tasks:
+    - name: Check for failure flag
+      stat:
+        path: /tmp/failure.txt
+      register: failure_file
+
     - name: Send notification to PagerDuty
       community.general.pagerduty_alert:
         integration_key: "a0c9bf531775410ad08610a4dd7247d4"
@@ -9,3 +14,8 @@
         desc: "Failure event notification"
         source: "Ansible Playbook"
         state: "triggered"
+    - name: remove failure flag
+      file:
+        path: /tmp/failure.txt
+        state: absent
+      when: failure_file.stat.exists
