@@ -3,8 +3,9 @@
   hosts: localhost
   tasks:
     - name: Send notification to PagerDuty
-      community.general.pagerduty:
+      community.general.pagerduty_alert:
         integration_key: "a0c9bf531775410ad08610a4dd7247d4"
-        summary: "Info event notification"
+        api_version: v2
+        desc: "Failure event notification"
         source: "Ansible Playbook"
-        severity: "info"
+        state: "triggered"
