@@ -42,23 +42,5 @@
         state: absent
       when: upgrade_failure_file.stat.exists
 
-    - name: Check for reboot failure flag
-      stat:
-        path: /tmp/reboot_failure.txt
-      register: reboot_failure_file
-
-    - name: Send reboot notification to PagerDuty
-      community.general.pagerduty_alert:
-        integration_key: "a0c9bf531775410ad08610a4dd7247d4"
-        api_version: v2
-        desc: "Reboot failed"
-        source: "Ansible Playbook"
-        state: "triggered"
-      when: reboot_failure_file.stat.exists
-
-    - name: Remove reboot failure flag
-      file:
-        path: /tmp/reboot_failure.txt
-        state: absent
-      when: reboot_failure_file.stat.exists
+   
 
