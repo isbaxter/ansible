@@ -1,0 +1,15 @@
+---
+- name: Notify PagerDuty of info events
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Send notification to PagerDuty
+      community.general.pagerduty:
+        integration_key: "{{ pagerduty_integration_key }}"
+        event_action: "trigger"
+        payload:
+          summary: "Info event notification"
+          source: "Ansible Playbook"
+          severity: "info"
+      vars:
+        pagerduty_integration_key: "a0c9bf531775410ad08610a4dd7247d4"
