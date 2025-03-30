@@ -1,14 +1,18 @@
----
-- hosts: all
+- name: Ubuntu servers playbook
+  hosts: all
   tasks:
-    - name: Update apt repo and cache on allDebian/Ubuntu boxes
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+      register: apt_update_result
+
     - name: Upgrade all packages on servers
       apt: upgrade=dist force_apt_get=yes
       register: upgrade_result
-    - name: Check if a reboot is needed on allservers
+
+    - name: Check if a reboot is needed on all servers
       register: reboot_required_file
       stat: path=/var/run/reboot-required get_md5=no
+
     - name: Reboot the box if kernel updated
       reboot:
         msg: "Reboot initiated by Ansible for kernel updates"
@@ -18,8 +22,22 @@
         post_reboot_delay: 30
         test_command: uptime
       when: reboot_required_file.stat.exists
-    - name: create failure file
+      register: reboot_result
+
+    - name: Check if apt update failed
       copy:
-        content: "Failure event notification"
-        dest: /tmp/failure.txt
-      when: upgrade_result is failed 
+        content: "APT update failure event notification"
+        dest: /tmp/apt_update_failure.txt
+      when: apt_update_result is failed
+
+    - name: Check if upgrade failed
+      copy:
+        content: "Upgrade failure event notification"
+        dest: /tmp/upgrade_failure.txt
+      when: upgrade_result is failed
+
+    - name: Check if reboot failed
+      copy:
+        content: "Reboot check failure event notification"
+        dest: /tmp/reboot_failure.txt
+      when: reboot_result is failed
