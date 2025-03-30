@@ -1,12 +1,8 @@
-<<<<<<< HEAD
 ---
-- hosts: all
-  become: true
-  become_user: root
-=======
 - name: Ubuntu servers playbook
   hosts: all
->>>>>>> c495d64f90ef6c7a50b2841920aa750a18ef08fe
+  become: true
+  become_user: root
   tasks:
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
