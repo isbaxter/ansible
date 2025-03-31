@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 
 def txt_to_html(input_file, output_file):
