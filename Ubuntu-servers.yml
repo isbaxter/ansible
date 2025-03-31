@@ -9,12 +9,6 @@
       register: apt_update_result
       ignore_errors: yes
 
-    - name: Debug apt_update_result with hostname
-      debug:
-        msg:
-          - "Hostname: {{ inventory_hostname }}"
-          - "apt_update_result: {{ apt_update_result }}"
-
     - name: Upgrade all packages on servers
       apt: upgrade=dist force_apt_get=yes
       register: upgrade_result
