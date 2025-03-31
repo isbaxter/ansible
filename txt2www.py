@@ -19,5 +19,5 @@ def txt_to_html(input_file, output_file):
         print(f"An error occurred: {e}")
 
 # Convert the files
-txt_to_html('playback-servers.txt', 'playback-servers.html')
+txt_to_html('playback-updates.txt', 'playback-updates.html')
 txt_to_html('playback-notify.txt', 'playback-notify.html')
