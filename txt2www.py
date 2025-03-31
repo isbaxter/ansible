@@ -2,10 +2,11 @@
 import os
 from datetime import datetime
 
-def txt_to_html(input_file, output_file):
+def txt_to_html(input_file, output_file_base):
     try:
         # Get the current date and time
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Format for filenames
+        output_file = f"{output_file_base}_{current_time}.html"  # Append timestamp to filename
         
         with open(input_file, 'r') as txt_file:
             lines = txt_file.readlines()
@@ -24,5 +25,5 @@ def txt_to_html(input_file, output_file):
         print(f"An error occurred: {e}")
 
 # Convert the files
-txt_to_html('playback-updates.txt', 'playback-updates.html')
-txt_to_html('playback-notify.txt', 'playback-notify.html')
+txt_to_html('playback-updates.txt', 'playback-updates')
+txt_to_html('playback-notify.txt', 'playback-notify')
