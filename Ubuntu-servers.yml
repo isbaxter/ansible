@@ -40,7 +40,6 @@
         path: /tmp/apt_update_failure.txt
         state: touch
       delegate_to: 127.0.0.1
-      run_once: true
       when: apt_update_result.failed == True
 
     - name: Check if upgrade failed
@@ -48,7 +47,6 @@
         path: /tmp/upgrade_failure.txt
         state: touch
       delegate_to: 127.0.0.1
-      run_once: true
       when: upgrade_result.failed == True
 
 
