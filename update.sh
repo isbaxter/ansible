@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set PATH for cron environment
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 # Define the absolute path to ansible-playbook
 ANSIBLE_PLAYBOOK=/usr/bin/ansible-playbook  # Adjust this path if ansible-playbook is located elsewhere
 
@@ -24,7 +27,7 @@ else
 fi
 
 # Run the Python script to convert logs to HTML
-python3 /home/ansible/txt2www.py
+/usr/bin/python3 /home/ansible/txt2www.py >> /home/ansible/txt2www.log 2>&1
 
 # Check if the Python script ran successfully
 if [ $? -eq 0 ]; then
