@@ -24,6 +24,6 @@ def txt_to_html(input_file, output_file_base):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# Convert the files
-txt_to_html('playback-updates.txt', 'playback-updates')
-txt_to_html('playback-notify.txt', 'playback-notify')
+# Convert the files with absolute paths
+txt_to_html('/home/ansible/playback-updates.txt', '/home/ansible/playback-updates')
+txt_to_html('/home/ansible/playback-notify.txt', '/home/ansible/playback-notify')
