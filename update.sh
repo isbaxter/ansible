@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Define the absolute path to ansible-playbook
+ANSIBLE_PLAYBOOK=/usr/bin/ansible-playbook  # Adjust this path if ansible-playbook is located elsewhere
+
 # Run first Ansible playbook and log output
-ansible-playbook -i /home/ansible/inventory.ini /home/ansible/Ubuntu-servers.yml > playback-updates.txt
+$ANSIBLE_PLAYBOOK -i /home/ansible/inventory.ini /home/ansible/Ubuntu-servers.yml > /home/ansible/playback-updates.txt
 
 # Check if the first playbook ran successfully
 if [ $? -eq 0 ]; then
@@ -11,7 +14,7 @@ else
 fi
 
 # Run second Ansible playbook and log output
-ansible-playbook notify.yml > playback-notify.txt
+$ANSIBLE_PLAYBOOK /home/ansible/notify.yml > /home/ansible/playback-notify.txt
 
 # Check if the second playbook ran successfully
 if [ $? -eq 0 ]; then
@@ -19,3 +22,6 @@ if [ $? -eq 0 ]; then
 else
     echo "notify.yml encountered errors."
 fi
+
+# Run the Python script to convert logs to HTML
+python3 /home/ansible/txt2www.py
