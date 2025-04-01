@@ -25,3 +25,10 @@ fi
 
 # Run the Python script to convert logs to HTML
 python3 /home/ansible/txt2www.py
+
+# Check if the Python script ran successfully
+if [ $? -eq 0 ]; then
+    echo "txt2www.py ran successfully."
+else
+    echo "txt2www.py encountered errors."
+fi
