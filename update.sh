@@ -4,7 +4,7 @@
 ANSIBLE_PLAYBOOK=/usr/bin/ansible-playbook  # Adjust this path if ansible-playbook is located elsewhere
 
 # Run first Ansible playbook and log output
-$ANSIBLE_PLAYBOOK -i /home/ansible/inventory.ini /home/ansible/Ubuntu-servers.yml > /home/ansible/playback-updates.txt
+$ANSIBLE_PLAYBOOK --verbose -i /home/ansible/inventory.ini /home/ansible/Ubuntu-servers.yml > /home/ansible/playback-updates.txt
 
 # Check if the first playbook ran successfully
 if [ $? -eq 0 ]; then
