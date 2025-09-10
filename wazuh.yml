@@ -1,0 +1,34 @@
+---
+- name: Uninstall Wazuh agent from all Ubuntu machines
+  hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Stop wazuh-agent service
+      ansible.builtin.service:
+        name: wazuh-agent
+        state: stopped
+      ignore_errors: yes
+
+    - name: Remove wazuh-agent package
+      ansible.builtin.apt:
+        name: wazuh-agent
+        state: absent
+        purge: yes
+        update_cache: yes
+
+    - name: Remove wazuh-agent configuration and data directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /var/ossec
+        - /etc/ossec-init.conf
+        - /etc/init.d/wazuh-agent
+        - /etc/systemd/system/wazuh-agent.service
+      ignore_errors: yes
+
+    - name: Reload systemd daemon
+      ansible.builtin.systemd:
+        daemon_reload: yes
+      when: ansible_facts['os_family'] == 'Debian'
